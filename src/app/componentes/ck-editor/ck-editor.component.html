@@ -1,0 +1,40 @@
+<!-- <ckeditor  [editor]="Editor" [config]="editorConfig"  (ready)="onReady($event)" data="(texto)" ></ckeditor>
+<button (click)="guardar()">Guardar </button> -->
+
+<form #miFormulario="ngForm" class="margin-form" >
+  <div class="mt-4">
+   <h6 >Categoria</h6>
+
+  <input [(ngModel)]="this.categoria" type="text" name="categoria" class="form-control" placeholder="Categoria" aria-label="Username" aria-describedby="basic-addon1">
+  </div>
+  <div class="input-group mb-3 mt-4">
+    <span class="input-group-text" id="basic-addon1">Titulo</span>
+    <input  [(ngModel)]="this.titulo" type="text" name="titulo"class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+  </div>
+
+  <div class="input-group mb-3 mt-4">
+    <span class="input-group-text" id="basic-addon1">Subtitulo</span>
+    <input  [(ngModel)]="this.subtitulo"  name="subtitulo" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+  </div>
+
+
+  <!-- <ckeditor *ngIf="swipperisActive" [editor]="Editor" data="<p>Hello, world!</p>" (ready)="onReady($event)"></ckeditor> -->
+
+  <button class="btn btn-dark" (click)="submitForm()">Enviar</button>
+  </form>
+
+
+<div style="margin-left:10%; margin-right: 10%;">
+
+
+<div   class="document-editor" style="zoom: 0.8;z-index:-11111">
+  <div class="document-editor__toolbar"></div>
+  <div class="document-editor__editable-container">
+        <div  class="document-editor__editable" [innerHTML]= "(data)" >    </div>
+</div>
+
+
+  <button (click)="agregarPublicacion()">guardar</button>
+
+</div>
+</div>
