@@ -9,35 +9,32 @@ import { CrudService } from './servicios/crud.service';
 export class AppComponent implements OnInit {
 
 
-  @Input('data') data : any ;
+  @Input('data') data: any;
 
 
-data2:any
+  data2: any
+  load = false
+  texto: any
 
 
-load=false
- texto:any
+  constructor(public crudService: CrudService) { }
 
 
-  constructor(public crudService:CrudService){}
+  ngOnInit() {
 
-
-  ngOnInit(){
-
-
-    this.crudService.getOneArticulo("64100b034d3a35cc519daa96").subscribe(res=>{
-
-      this.data2 = res as Data
-      this.texto = this.data2.articulo
-      this.load = true
-        this.crudService.unArticulo = res as Data
-console.log(this.crudService.unArticulo )
-    })
+    // this.crudService.getOneArticulo("6425a70d6a5adcbd50085819").subscribe(res => {
+    //   this.data2 = res as Data
+      
+    //   this.texto = this.data2.articulo
+    //   this.load = true
+    //   this.crudService.unArticulo = res as Data
+      
+    // })
 
 
 
 
-}
+  }
 
 
 

@@ -1,40 +1,53 @@
-<!-- <ckeditor  [editor]="Editor" [config]="editorConfig"  (ready)="onReady($event)" data="(texto)" ></ckeditor>
-<button (click)="guardar()">Guardar </button> -->
+<div class="fondo" >
 
-<form #miFormulario="ngForm" class="margin-form" >
-  <div class="mt-4">
-   <h6 >Categoria</h6>
-
-  <input [(ngModel)]="this.categoria" type="text" name="categoria" class="form-control" placeholder="Categoria" aria-label="Username" aria-describedby="basic-addon1">
-  </div>
-  <div class="input-group mb-3 mt-4">
-    <span class="input-group-text" id="basic-addon1">Titulo</span>
-    <input  [(ngModel)]="this.titulo" type="text" name="titulo"class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-  </div>
-
-  <div class="input-group mb-3 mt-4">
-    <span class="input-group-text" id="basic-addon1">Subtitulo</span>
-    <input  [(ngModel)]="this.subtitulo"  name="subtitulo" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-  </div>
+  <div >
 
 
-  <!-- <ckeditor *ngIf="swipperisActive" [editor]="Editor" data="<p>Hello, world!</p>" (ready)="onReady($event)"></ckeditor> -->
-
-  <button class="btn btn-dark" (click)="submitForm()">Enviar</button>
-  </form>
 
 
-<div style="margin-left:10%; margin-right: 10%;">
 
+      <!-- <div class="text-center"> -->
+        <div style="margin-left: 20px; margin-top: 20px;">
+        <h6 style="font-weight: 900; color:black; font-size: 30px!important; ">{{data?.titulo}}</h6>
+        <h6 style="width: 70%;">{{data?.subtitulo}}</h6>
+        
+      </div>
 
-<div   class="document-editor" style="zoom: 0.8;z-index:-11111">
-  <div class="document-editor__toolbar"></div>
-  <div class="document-editor__editable-container">
-        <div  class="document-editor__editable" [innerHTML]= "(data)" >    </div>
+        <!-- <div class="text-right" style="margin-top:-15px">
+          <div style="float:left;">
+          <mat-icon style=" margin-left:4px; color:brown" (click)="scrollCenter()">vertical_align_center</mat-icon>
+        </div>
+          <mat-icon *ngIf="loader" (click)="loader=false" (click)="agregarPublicacion()" style="color:brown; cursor:pointer; font-size:30px;margin-right: 10px;" >save</mat-icon>
+
+          <img *ngIf="!loader" src="../../../assets/loader.gif" width="40px" alt="" style="margin-top:-22px">
+
+      <mat-icon  (click)="this.crudService.cambioPantalla = true" (click)="scrollReset()"  style="font-size:30px; cursor:pointer; color:brown;">close</mat-icon>
+
+  </div> -->
+  <hr>
+  <button class="btn btn-sm btn-dark" style="margin-left: 20px; margin-bottom: 20px;" (click)="agregarPublicacion()">Guardar</button>
+  <button class="btn btn-sm btn-dark" style="margin-left: 10px; margin-bottom: 20px;" (click)="back()">Volver</button>
+
+  <div  class="document-editor" style="z-index: -1111111;" >
+    <div class="document-editor__toolbar"></div>
+    <div class="document-editor__editable-container">
+
+          <div class="document-editor__editable" [innerHTML]="this.data.articulo|sanitizer"  >                         
+            
+          </div>
+
+    </div>
+    
 </div>
 
 
-  <button (click)="agregarPublicacion()">guardar</button>
 
-</div>
-</div>
+  </div>
+
+
+
+  </div>
+
+
+<!-- Modal -->
+

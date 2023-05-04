@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Data } from '../modelos/data';
+import { Location } from '@angular/common'
 
 
 @Injectable({
@@ -11,16 +12,19 @@ export class CrudService {
   unArticulo = new Data
 
   readonly URL_API  = "http://localhost:4201/data";
+  readonly URL_API2 = "http://localhost:4201/upload";
+  constructor(private http:HttpClient, private location:Location)  { }
 
-  constructor(private http:HttpClient,) { }
+  back(): void {  
+    this.location.back()
+    }
 
-
-  // uploadFile(formData:any){
-  //   console.log('Bandera', formData)
-  //    return this.http.post(this.URL_API2, formData)
-       // en produccion poner '/upload' por this.URL_API2
+  uploadFile(formData:any){
+    console.log('Bandera', formData)
+     return this.http.post(this.URL_API2, formData)
+    //    en produccion poner '/upload' por this.URL_API2
     // en desarrollo poner - this.URL_API2  - por '/upload '
-      // }
+      }
 
 
     getArticulos() {

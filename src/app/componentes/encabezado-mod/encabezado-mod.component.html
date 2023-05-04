@@ -1,0 +1,25 @@
+
+<form #miFormulario="ngForm" class="margin-form mt-2" >
+  <h1>Modificar</h1>
+    <div class="mt-4">
+     <h6 >Categoria</h6>
+    
+    <input [(ngModel)]="this.categoria" type="text" name="categoria" class="form-control" placeholder="Categoria" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3 mt-4">
+      <span class="input-group-text" id="basic-addon1">Titulo</span>
+      <input  [(ngModel)]="this.titulo" type="text" name="titulo"class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+    
+    <div class="input-group mb-3 mt-4">
+      <span class="input-group-text" id="basic-addon1">Subtitulo</span>
+      <input  [(ngModel)]="this.subtitulo"  name="subtitulo" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+    <input class="form-control" type="file" id="formFile"  type="file"  style="  overflow: none"  (change)="onFileChange($event);" (change)="onUpload()"  width="100%">
+    
+    <!-- <ckeditor *ngIf="swipperisActive" [editor]="Editor" data="<p>Hello, world!</p>" (ready)="onReady($event)"></ckeditor> -->
+    
+    <button class="btn btn-dark bt-sm mt-5" (click)="submitForm()">Crear Artículo</button>
+    <button class="btn btn-dark bt-sm mt-5 " style="margin-left: 10px;" (click)="back()">Volver</button>
+    </form>
+    

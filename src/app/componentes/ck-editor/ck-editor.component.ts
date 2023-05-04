@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,Inject } from '@angular/core';
+import { Component, OnInit, Input,Inject, ViewChild } from '@angular/core';
 import * as DecoupledDocumentEditor from 'src/app/ckeditor4/';
 import { Data } from '../../modelos/data';
 import { CrudService } from '../../servicios/crud.service';
@@ -11,12 +11,19 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrls: ['./ck-editor.component.css']
 })
 export class CkEditorComponent {
+
+
+
+
+art:any
+  
   title = 'my-editor-app';
 
   titulo=""
   subtitulo=""
   categoria=""
   articulo=""
+  load=false
 
 
   @Input('data') data : any ;
@@ -30,60 +37,7 @@ export class CkEditorComponent {
 
   public editorConfig = {
 
-    toolbar: {
-      items: [
-        'heading',
-        '|',
-        'fontSize',
-        'fontFamily',
-        '|',
-        'fontColor',
-        'fontBackgroundColor',
-        '|',
-        'bold',
-        'italic',
-        'underline',
-        'strikethrough',
-        '|',
-        'alignment',
-        '|',
-        'codeBlock',
-        'numberedList',
-        'bulletedList',
-        '|',
-        'outdent',
-        'indent',
-        '|',
-        'todoList',
-        'link',
-        'blockQuote',
-        'imageUpload',
-        'insertTable',
-        'mediaEmbed',
-        '|',
-        'undo',
-        'redo'
-      ]
-    },
-    language: 'es',
-    image: {
-      toolbar: [
-        'imageTextAlternative',
-        'toggleImageCaption',
-        'imageStyle:inline',
-        'imageStyle:block',
-        'imageStyle:side'
-      ]
-    },
-    table: {
-      contentToolbar: [
-        'tableColumn',
-        'tableRow',
-        'mergeTableCells',
-        'tableCellProperties',
-        'tableProperties'
-      ]
-    },
+
     heading: {
       options: [
           { model: 'paragraph', title: 'Parrafos', class: 'ck-heading_paragraph' },
@@ -114,14 +68,24 @@ export class CkEditorComponent {
       );
   }
 
-  constructor(public crudService:CrudService){}
-
+  constructor(public crudService:CrudService){
+    // this.crudService.unArticulo = this.data
+  }
+ 
 
   ngOnInit(){
 
+    this.crudService.unArticulo.vistas = 1
+    this.crudService.unArticulo._id = this.data._id
+    this.crudService.unArticulo.categoria = this.data.categoria
+    this.crudService.unArticulo.titulo = this.data.titulo
+    this.crudService.unArticulo.subtitulo = this.data.subtitulo
+    
+console.log(this.data)
 
+this.art = this.data.articulo
     this.Editor.create( document.querySelector( '.document-editor__editable' ), {
-
+      
       heading: {
           options: [
               { model: 'paragraph', title: 'Parrafos', class: 'ck-heading_paragraph' },
@@ -131,61 +95,7 @@ export class CkEditorComponent {
 
           ]
       },
-      toolbar: {
-        items: [
-          'heading',
-          '|',
-          'fontSize',
-          'fontFamily',
-          '|',
-          'fontColor',
-          'fontBackgroundColor',
-          '|',
-          'bold',
-          'italic',
-          'underline',
-          'strikethrough',
-          '|',
-          'alignment',
-          '|',
-          'codeBlock',
-          'numberedList',
-          'bulletedList',
-          '|',
-          'outdent',
-          'indent',
-          '|',
-          'todoList',
-          'link',
-          'blockQuote',
-          'imageUpload',
-          'insertTable',
-          'mediaEmbed',
-          '|',
-          'undo',
-          'redo'
-        ]
-      },
-      language: 'es',
-      image: {
-        toolbar: [
-          'imageTextAlternative',
-          'toggleImageCaption',
-          'imageStyle:inline',
-          'imageStyle:block',
-          'imageStyle:side'
-        ]
-      },
-      table: {
-        contentToolbar: [
-          'tableColumn',
-          'tableRow',
-          'mergeTableCells',
-          'tableCellProperties',
-          'tableProperties'
-        ]
-      },
-
+    
        link: {
             // Automatically add target="_blank" and rel="noopener noreferrer" to all external links.
             addTargetToExternalLinks: true,
@@ -202,59 +112,42 @@ export class CkEditorComponent {
 
     },
 
-          } )
-
-          .then( (editor:any) => {
-
+      }).then( (editor:any) => {
+        
       const toolbarContainer = document.querySelector( '.document-editor__toolbar' );
       if(toolbarContainer){
       toolbarContainer.appendChild( editor.ui.view.toolbar.element );
       this.myEditor = editor
-
+      this.myEditor.setData(this.data.articulo) //IMPORTANTEEEE
+      
+      
             }
   } )
   .catch( (err:any) => {
       console.error( err );
   } );
-
-
+  
+  
 }
 
 
 agregarPublicacion(){
-
-console.log(this.myEditor.getData())
-
-// if(this.crudService.unArticulo){
-//     this.crudService.unArticulo.articulo = this.myEditor.getData()
-//     console.log("bandera: ", this.crudService.unArticulo)
-//       this.crudService.modificarArticulo(this.crudService.unArticulo)
-//       .subscribe(res => {
-//         console.log(res)
-
-//       });
-//     }
-//         else  {
-
-          // this.crudService.addArticulo(this.crudService.unArticulo).subscribe(res => {
-          //   console.log(res)
-
-          // })
-      // }
+this.data.articulo = this.myEditor.getData()
 
 
-      this.submitForm()
+
+if(this.data._id ){
+console.log('agregar', this.crudService.unArticulo)
+this.crudService.modificarArticulo(this.data).subscribe((res:any) => {console.log(res)} )
+
+//  this.crudService.addArticulo(this.crudService.unArticulo).subscribe((res:any) => {console.log(res)}
+// )}
+
+}}
+
+back(){
+  this.crudService.back()
+}
+
     };
 
-
-    submitForm(){
-      this.crudService.unArticulo.articulo = this.myEditor.getData()
-      this.crudService.unArticulo.categoria = this.categoria
-      this.crudService.unArticulo.titulo = this.titulo
-      this.crudService.unArticulo.subtitulo = this.subtitulo
-
-      this.crudService.addArticulo(this.crudService.unArticulo).subscribe((res:any) => {console.log(res)}
-    )}
-
-
-}

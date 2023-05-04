@@ -1,15 +1,16 @@
 export class Data {
 
     public data = {
-        id:'',
+        _id:'',
         titulo:'',
         subtitulo:'',
         categoria:'',
         articulo:'',
         imagen:'',
+        vistas:'',
     };
 
-    constructor(_id="", titulo="", subtitulo="", categoria ="", articulo ="", imagen ="")
+    constructor(_id="", titulo="", subtitulo="", categoria ="", articulo ="", imagen ="" , vistas=0)
 
     {
         this._id = _id
@@ -18,6 +19,7 @@ export class Data {
         this.categoria = categoria;
         this.articulo = articulo;
         this.imagen = imagen;
+        this.vistas = vistas
     };
 
     _id:string;
@@ -26,6 +28,7 @@ export class Data {
     categoria:string;
     articulo:string;
     imagen:string;
+    vistas:number
 };
 
 
