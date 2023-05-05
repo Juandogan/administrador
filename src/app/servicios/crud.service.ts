@@ -11,8 +11,8 @@ export class CrudService {
 
   unArticulo = new Data
 
-  readonly URL_API  = "http://localhost:4201/data";
-  readonly URL_API2 = "http://localhost:4201/upload";
+  readonly URL_API  = "http://66.97.44.139/data";
+  readonly URL_API2 = "http://66.97.44.139/upload";
   constructor(private http:HttpClient, private location:Location)  { }
 
   back(): void {  
@@ -21,7 +21,7 @@ export class CrudService {
 
   uploadFile(formData:any){
     console.log('Bandera', formData)
-     return this.http.post(this.URL_API2, formData)
+     return this.http.post("/upload", formData)
     //    en produccion poner '/upload' por this.URL_API2
     // en desarrollo poner - this.URL_API2  - por '/upload '
       }
